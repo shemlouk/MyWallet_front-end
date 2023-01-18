@@ -19,8 +19,9 @@ export const PageTitle = styled.h1`
   user-select: none;
 `;
 
-export const SignOutButton = styled.div`
+export const Button = styled.div`
   display: ${({ hideButton }) => hideButton && "none"};
+  height: 30px;
   ion-icon {
     width: 30px;
     height: 30px;
