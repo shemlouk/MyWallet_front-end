@@ -1,7 +1,7 @@
 import Container from "./style";
 
-const Main = ({ children }) => {
-  return <Container>{children}</Container>;
+const Main = ({ children, flexStart }) => {
+  return <Container {...{ flexStart }}>{children}</Container>;
 };
 
 export default Main;
