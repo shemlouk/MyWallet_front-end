@@ -144,7 +144,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background-color: var(--purple);
+    background: linear-gradient(0deg, var(--purple) 0%, var(--lightpurple) 100%);
     height: 100vh;
   }
   a {

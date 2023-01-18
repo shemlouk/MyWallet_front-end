@@ -23,7 +23,8 @@ export const Submit = styled.input`
   height: 46px;
   border: none;
   border-radius: 5px;
-  background-color: var(--lightpurple);
+  background: var(--lightpurple);
+  box-shadow: inset -7px -7px 14px #9c26cd, inset 7px 7px 14px #aa2adf;
   color: white;
   font-size: 20px;
   font-weight: 700;

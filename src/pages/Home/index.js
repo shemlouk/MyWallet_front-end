@@ -11,12 +11,9 @@ const Home = () => {
       <Main>
         <S.Container>
           <S.List>
-            <Card
-              date="30/11"
-              text="Some expensive purchase"
-              value="39,90"
-              type="expense"
-            />
+            <Card date="30/11" text="Salário" value="4569,90" type="income" />
+            <Card date="30/11" text="Almoço" value="39,90" type="expense" />
+            <Card date="30/11" text="Janta" value="59,90" type="expense" />
             <S.ListFooter>
               SALDO <p>{"2849,96"}</p>
             </S.ListFooter>

@@ -17,13 +17,14 @@ export const Button = styled.button`
   height: 114px;
   padding: 10px 12px;
   border: none;
-  border-radius: 5px;
-  background-color: var(--lightpurple);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  border-radius: 7px;
+  background: var(--lightpurple);
+  box-shadow: inset -10px -10px 20px #9625c5, inset 10px 10px 20px #b02be7;
   cursor: pointer;
   ion-icon {
     width: 27px;
