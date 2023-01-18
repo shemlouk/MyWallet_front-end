@@ -21,6 +21,9 @@ const Home = () => {
               SALDO <p>{"2849,96"}</p>
             </S.ListFooter>
           </S.List>
+          <S.Message hide>
+            <p>Não há registros de entrada ou saída</p>
+          </S.Message>
         </S.Container>
       </Main>
       <Footer />
