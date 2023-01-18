@@ -6,6 +6,12 @@ export const Container = styled.li`
   display: flex;
   align-items: center;
   font-size: 16px;
+  ion-icon {
+    margin-left: 7px;
+    color: var(--lightgray);
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const Date = styled.p`

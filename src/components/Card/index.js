@@ -8,6 +8,7 @@ const Card = ({ date, text, value, type }) => {
       <S.Date>{date}</S.Date>
       <S.Description>{text}</S.Description>
       <S.Value color={colors[type]}>{value}</S.Value>
+      <ion-icon name="close" />
     </S.Container>
   );
 };
