@@ -143,6 +143,16 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Raleway", sans-serif !important;
     box-sizing: border-box;
   }
+  body {
+    background-color: var(--purple);
+    height: 100vh;
+  }
+  a {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
