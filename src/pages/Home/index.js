@@ -1,3 +1,4 @@
+import Card from "../../components/Card";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
 import Main from "../../layout/Main";
@@ -10,7 +11,12 @@ const Home = () => {
       <Main>
         <S.Container>
           <S.List>
-            {"Records goes here"}
+            <Card
+              date="30/11"
+              text="Some expensive purchase"
+              value="39,90"
+              type="expense"
+            />
             <S.ListFooter>
               SALDO <p>{"2849,96"}</p>
             </S.ListFooter>

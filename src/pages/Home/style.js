@@ -33,6 +33,6 @@ export const ListFooter = styled.div`
   p {
     font-family: "Roboto", sans-serif !important;
     font-weight: 400;
-    color: ${({ color }) => color};
+    color: ${({ color }) => "var(--" + color + ")"};
   }
 `;
