@@ -153,6 +153,10 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 700;
     text-decoration: none;
   }
+  @keyframes fadeout {
+    0% { opacity: 1 }
+    100% { opacity: 0 }
+  }
 `;
 
 export default GlobalStyle;

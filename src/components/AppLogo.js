@@ -8,7 +8,7 @@ const Title = styled.h1`
   color: white;
   font-size: 32px;
   user-select: none;
-  margin-bottom: 24px;
+  margin-bottom: 17px;
   font-family: "Saira Stencil One" !important;
 `;
 
