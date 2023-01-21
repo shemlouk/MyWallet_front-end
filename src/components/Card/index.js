@@ -1,13 +1,14 @@
+import formatToLocale from "../../services/utils/formatToLocale";
+import { COLORS } from "../../services/constants";
 import * as S from "./style";
+import dayjs from "dayjs";
 
-const colors = { income: "green", expense: "red" };
-
-const Card = ({ date, text, value, type }) => {
+const Card = ({ date, description, value, type }) => {
   return (
     <S.Container>
-      <S.Date>{date}</S.Date>
-      <S.Description>{text}</S.Description>
-      <S.Value color={colors[type]}>{value}</S.Value>
+      <S.Date>{dayjs(date).format("DD/MM")}</S.Date>
+      <S.Description>{description}</S.Description>
+      <S.Value color={COLORS[type]}>{formatToLocale(value)}</S.Value>
       <ion-icon name="close" />
     </S.Container>
   );

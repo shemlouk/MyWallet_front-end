@@ -13,7 +13,7 @@ export const List = styled.ul`
   width: 100%;
   height: 100%;
   padding-bottom: 10px;
-  overflow-x: scroll;
+  overflow-y: scroll;
 `;
 
 export const ListFooter = styled.div`

@@ -30,3 +30,5 @@ export const INPUTS = [
 ];
 
 export const DELAY = 3500;
+
+export const COLORS = { income: "green", expense: "red" };

@@ -33,4 +33,5 @@ export const Description = styled.p`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: 20px;
 `;
