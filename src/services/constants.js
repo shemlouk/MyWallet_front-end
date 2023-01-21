@@ -1,27 +1,27 @@
 export const INPUTS = [
   {
-    form: "user",
+    forms: ["signup"],
     field: "name",
     type: "text",
     placeholder: "Nome",
     error: "Nome é obrigatório!",
   },
   {
-    form: "user",
+    forms: ["signup", "signin"],
     field: "email",
     type: "email",
     placeholder: "Email",
     error: "Email é obrigatório!",
   },
   {
-    form: "user",
+    forms: ["signup", "signin"],
     field: "password",
     type: "password",
     placeholder: "Senha",
     error: "Senha é obrigatória!",
   },
   {
-    form: "user",
+    forms: ["signup"],
     field: "confirmPassword",
     type: "password",
     placeholder: "Confirme a senha",

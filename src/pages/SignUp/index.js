@@ -1,6 +1,6 @@
+import setNotificationTimeout from "../../services/utils/setNotificationTimeout";
 import { useCallback, useEffect, useState, useRef, Fragment } from "react";
-import LoadingSpinner from "../../components/LoadingSpinner";
-import { INPUTS, DELAY } from "../../services/constants";
+import { INPUTS } from "../../services/constants";
 import { Link, useNavigate } from "react-router-dom";
 import * as F from "../../components/FormComponents";
 import AppLogo from "../../components/AppLogo";
@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import URL from "../../config";
 import axios from "axios";
 
-const formInputs = INPUTS.filter((i) => i.form === "user");
+const formInputs = INPUTS.filter((i) => i.forms.includes("signup"));
 
 const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,8 +31,7 @@ const SignUp = () => {
       await axios.post(`${URL}/signup`, { name, email, password });
       navigate("/", { state: { message: "Cadastro realizado com sucesso!" } });
     } catch ({ response }) {
-      clearTimeout(timeRef.content);
-      timeRef.content = setTimeout(() => setMessage(""), DELAY);
+      setNotificationTimeout(timeRef, setMessage);
       setIsLoading(false);
       setMessage(
         response.status === 409
@@ -48,8 +47,7 @@ const SignUp = () => {
   }, [message]);
 
   return (
-    <Main {...{ message }}>
-      {isLoading && <LoadingSpinner />}
+    <Main {...{ message, isLoading }}>
       <AppLogo />
       <Form submitFunction={handleSubmit(submit)}>
         {formInputs.map((input, index) => (
