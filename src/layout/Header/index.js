@@ -1,14 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../hooks/AuthContext";
+import { useCallback, useContext } from "react";
+import URL from "../../config";
 import * as S from "./style";
+import axios from "axios";
 
-const Header = ({ children, hideButton }) => {
+const Header = ({ children, hideButton, setMessage, setIsLoading }) => {
+  const config = useContext(AuthContext);
+  const navigate = useNavigate();
+  const singOut = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      await axios.delete(`${URL}/signin`, config);
+      navigate("/", { state: { message: "Até mais! :D" } });
+    } catch (err) {
+      setIsLoading(false);
+      setMessage("Não foi possível deslogar!");
+    }
+  });
   return (
     <S.Container>
       <S.PageTitle>{children}</S.PageTitle>
       <S.Button hideButton={hideButton}>
-        <Link to="/">
-          <ion-icon name="exit-outline"></ion-icon>
-        </Link>
+        <ion-icon onClick={singOut} name="exit-outline"></ion-icon>
       </S.Button>
       <S.Button hideButton={!hideButton}>
         <Link to="/home">

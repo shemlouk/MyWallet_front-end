@@ -51,8 +51,8 @@ const Home = () => {
 
   return (
     <>
-      <Header>Olá, {}</Header>
-      <Main {...{ message }}>
+      <Header {...{ setMessage, setIsLoading }}>Olá, {}</Header>
+      <Main {...{ message, isLoading }}>
         <S.Container>
           {isLoading && <LoadingRecords />}
           <S.List>
