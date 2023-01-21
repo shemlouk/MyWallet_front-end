@@ -1,11 +1,13 @@
 import setNotificationTimeout from "../../services/utils/setNotificationTimeout";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import isSessionExpired from "../../services/utils/isSessionExpired";
+import formatUserName from "../../services/utils/formatUserName";
 import formatToLocale from "../../services/utils/formatToLocale";
 import LoadingRecords from "../../components/LoadingRecords";
-import AuthContext from "../../hooks/AuthContext";
-import { TYPES } from "../../services/constants";
 import { useLocation, useNavigate } from "react-router-dom";
+import AuthContext from "../../hooks/AuthContext";
+import UserContext from "../../hooks/UserContext";
+import { TYPES } from "../../services/constants";
 import Card from "../../components/Card";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
@@ -19,6 +21,7 @@ const Home = () => {
   const [message, setMessage] = useState("");
   const [records, setRecords] = useState([]);
   const [balance, setBalance] = useState();
+  const userName = useContext(UserContext);
   const config = useContext(AuthContext);
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -58,7 +61,9 @@ const Home = () => {
 
   return (
     <>
-      <Header {...{ setMessage, setIsLoading }}>Olá, {}</Header>
+      <Header {...{ setMessage, setIsLoading }}>
+        Olá, {formatUserName(userName)}
+      </Header>
       <Main {...{ message, isLoading }}>
         <S.Container>
           {isLoading && <LoadingRecords />}

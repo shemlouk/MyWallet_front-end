@@ -12,7 +12,7 @@ import axios from "axios";
 
 const formInputs = INPUTS.filter((i) => i.forms.includes("signin"));
 
-const SignIn = ({ setKey }) => {
+const SignIn = ({ setKey, setUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { state } = useLocation();
@@ -30,9 +30,10 @@ const SignIn = ({ setKey }) => {
       setIsLoading(true);
       try {
         const {
-          data: { token },
+          data: { token, user },
         } = await axios.post(`${URL}/signin`, { email, password });
         setKey({ headers: { Authorization: `Bearer ${token}` } });
+        setUser(user);
         navigate("/home");
       } catch ({ response }) {
         setNotificationTimeout(timeRef, setMessage);
