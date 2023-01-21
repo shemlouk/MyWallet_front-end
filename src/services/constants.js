@@ -27,8 +27,38 @@ export const INPUTS = [
     placeholder: "Confirme a senha",
     error: "As senhas devem ser iguais!",
   },
+  {
+    forms: ["addrecord"],
+    field: "value",
+    type: "number",
+    placeholder: "Valor",
+    error: "Valor não pode ser nulo ou negativo!",
+  },
+  {
+    forms: ["addrecord"],
+    field: "description",
+    type: "text",
+    placeholder: "Descrição",
+    error: "Descrição é obrigatória!",
+  },
+  {
+    forms: ["addrecord"],
+    field: "date",
+    type: "date",
+    placeholder: "",
+    error: "Data é obrigatória!",
+  },
 ];
 
 export const DELAY = 3500;
 
-export const COLORS = { income: "green", expense: "red" };
+export const TYPES = {
+  income: {
+    color: "green",
+    name: "entrada",
+  },
+  expense: {
+    color: "red",
+    name: "saída",
+  },
+};

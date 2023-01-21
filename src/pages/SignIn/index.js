@@ -25,29 +25,32 @@ const SignIn = ({ setKey }) => {
     formState: { errors },
   } = useForm();
 
-  const submit = useCallback(async ({ email, password }) => {
-    setIsLoading(true);
-    try {
-      const {
-        data: { token },
-      } = await axios.post(`${URL}/signin`, { email, password });
-      setKey({ headers: { Authorization: `Bearer ${token}` } });
-      navigate("/home");
-    } catch ({ response }) {
-      setNotificationTimeout(timeRef, setMessage);
-      setIsLoading(false);
-      switch (response?.status) {
-        case 404:
-          setMessage("Email não cadastrado!");
-          break;
-        case 401:
-          setMessage("Senha incorreta!");
-          break;
-        default:
-          setMessage("Não foi possível fazer login!");
+  const submit = useCallback(
+    async ({ email, password }) => {
+      setIsLoading(true);
+      try {
+        const {
+          data: { token },
+        } = await axios.post(`${URL}/signin`, { email, password });
+        setKey({ headers: { Authorization: `Bearer ${token}` } });
+        navigate("/home");
+      } catch ({ response }) {
+        setNotificationTimeout(timeRef, setMessage);
+        setIsLoading(false);
+        switch (response?.status) {
+          case 404:
+            setMessage("Email não cadastrado!");
+            break;
+          case 401:
+            setMessage("Senha incorreta!");
+            break;
+          default:
+            setMessage("Não foi possível fazer login!");
+        }
       }
-    }
-  });
+    },
+    [navigate, setKey]
+  );
 
   useEffect(() => {
     if (!state?.message) return;

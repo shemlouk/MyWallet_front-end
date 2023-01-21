@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ExpenseForm from "./pages/ExpenseForm";
 import AuthContext from "./hooks/AuthContext";
-import IncomeForm from "./pages/IncomeForm";
+import AddRecord from "./pages/AddRecord";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import { useState } from "react";
@@ -16,8 +15,8 @@ const App = () => {
           <Route path="/" element={<SignIn {...{ setKey }} />} />
           <Route path="/cadastro" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/nova-entrada" element={<IncomeForm />} />
-          <Route path="/nova-saida" element={<ExpenseForm />} />
+          <Route path="/nova-entrada" element={<AddRecord />} />
+          <Route path="/nova-saida" element={<AddRecord />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

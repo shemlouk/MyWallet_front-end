@@ -1,3 +1,4 @@
+import isSessionExpired from "../../services/utils/isSessionExpired";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../hooks/AuthContext";
 import { useCallback, useContext } from "react";
@@ -13,11 +14,12 @@ const Header = ({ children, hideButton, setMessage, setIsLoading }) => {
     try {
       await axios.delete(`${URL}/signin`, config);
       navigate("/", { state: { message: "Até mais! :D" } });
-    } catch (err) {
+    } catch ({ reponse: { status } }) {
       setIsLoading(false);
+      isSessionExpired(status, navigate);
       setMessage("Não foi possível deslogar!");
     }
-  });
+  }, [config, navigate, setIsLoading, setMessage]);
   return (
     <S.Container>
       <S.PageTitle>{children}</S.PageTitle>

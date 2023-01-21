@@ -25,23 +25,28 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const submit = useCallback(async ({ name, email, password }) => {
-    setIsLoading(true);
-    try {
-      await axios.post(`${URL}/signup`, { name, email, password });
-      navigate("/", { state: { message: "Cadastro realizado com sucesso!" } });
-    } catch ({ response }) {
-      setNotificationTimeout(timeRef, setMessage);
-      setIsLoading(false);
-      switch (response?.status) {
-        case 409:
-          setMessage("Email já cadastrado!");
-          break;
-        default:
-          setMessage("Não foi possível realizar cadastro!");
+  const submit = useCallback(
+    async ({ name, email, password }) => {
+      setIsLoading(true);
+      try {
+        await axios.post(`${URL}/signup`, { name, email, password });
+        navigate("/", {
+          state: { message: "Cadastro realizado com sucesso!" },
+        });
+      } catch ({ response }) {
+        setNotificationTimeout(timeRef, setMessage);
+        setIsLoading(false);
+        switch (response?.status) {
+          case 409:
+            setMessage("Email já cadastrado!");
+            break;
+          default:
+            setMessage("Não foi possível realizar cadastro!");
+        }
       }
-    }
-  });
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     message === "Email já cadastrado!" &&

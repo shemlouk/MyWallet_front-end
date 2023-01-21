@@ -1,7 +1,7 @@
 import formatToLocale from "../../services/utils/formatToLocale";
 import { useCallback, useContext, useState } from "react";
 import AuthContext from "../../hooks/AuthContext";
-import { COLORS } from "../../services/constants";
+import { TYPES } from "../../services/constants";
 import LoadingDelete from "../LoadingDelete";
 import URL from "../../config";
 import * as S from "./style";
@@ -20,12 +20,12 @@ const Card = ({ _id, date, description, value, type, getData, setMessage }) => {
       setMessage("Não foi possível deletar!");
       setIsLoading(false);
     }
-  });
+  }, [_id, config, getData, setMessage]);
   return (
     <S.Container>
       <S.Date>{dayjs(date).format("DD/MM")}</S.Date>
       <S.Description>{description}</S.Description>
-      <S.Value color={COLORS[type]}>{formatToLocale(value)}</S.Value>
+      <S.Value color={TYPES[type].color}>{formatToLocale(value)}</S.Value>
       {isLoading ? (
         <LoadingDelete />
       ) : (

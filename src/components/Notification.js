@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Notification = styled.div`
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   animation: fadeout 0.5s;
   font-size: 16px;
   top: 30px;

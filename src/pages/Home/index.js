@@ -1,9 +1,11 @@
 import setNotificationTimeout from "../../services/utils/setNotificationTimeout";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import isSessionExpired from "../../services/utils/isSessionExpired";
 import formatToLocale from "../../services/utils/formatToLocale";
 import LoadingRecords from "../../components/LoadingRecords";
 import AuthContext from "../../hooks/AuthContext";
-import { COLORS } from "../../services/constants";
+import { TYPES } from "../../services/constants";
+import { useLocation, useNavigate } from "react-router-dom";
 import Card from "../../components/Card";
 import Footer from "../../layout/Footer";
 import Header from "../../layout/Header";
@@ -18,6 +20,8 @@ const Home = () => {
   const [records, setRecords] = useState([]);
   const [balance, setBalance] = useState();
   const config = useContext(AuthContext);
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const timeRef = useRef();
 
   const getData = useCallback(async () => {
@@ -35,14 +39,17 @@ const Home = () => {
         type: sum > 0 ? "income" : "expense",
         value: formatToLocale(sum),
       });
-    } catch (err) {
+    } catch ({ response: { status } }) {
       setIsLoading(false);
+      isSessionExpired(status, navigate);
       setMessage("Não foi possível carregar os dados!");
     }
-  });
+  }, [config, navigate]);
 
   useEffect(() => {
     getData();
+    if (!state?.message) return;
+    setMessage(state.message);
   }, []);
 
   useEffect(() => {
@@ -64,7 +71,7 @@ const Home = () => {
                   {...{ getData, setMessage }}
                 />
               ))}
-            <S.ListFooter color={COLORS[balance?.type]}>
+            <S.ListFooter color={TYPES[balance?.type]?.color}>
               SALDO <p>{"R$ " + balance?.value}</p>
             </S.ListFooter>
           </S.List>
