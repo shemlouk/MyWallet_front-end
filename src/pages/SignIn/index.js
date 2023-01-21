@@ -36,7 +36,7 @@ const SignIn = ({ setKey }) => {
     } catch ({ response }) {
       setNotificationTimeout(timeRef, setMessage);
       setIsLoading(false);
-      switch (response.status) {
+      switch (response?.status) {
         case 404:
           setMessage("Email não cadastrado!");
           break;

@@ -33,11 +33,13 @@ const SignUp = () => {
     } catch ({ response }) {
       setNotificationTimeout(timeRef, setMessage);
       setIsLoading(false);
-      setMessage(
-        response.status === 409
-          ? "Email já cadastrado!"
-          : "Não foi possível realizar cadastro!"
-      );
+      switch (response?.status) {
+        case 409:
+          setMessage("Email já cadastrado!");
+          break;
+        default:
+          setMessage("Não foi possível realizar cadastro!");
+      }
     }
   });
 
