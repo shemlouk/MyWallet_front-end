@@ -74,8 +74,8 @@ const AddRecord = () => {
                 type={input.type}
                 disabled={isLoading}
                 placeholder={input.placeholder}
-                {...() => input.field === "date" && { max: today }}
-                {...() => input.field === "value" && { step: ".01" }}
+                max={input.field === "date" ? today : ""}
+                step={input.field === "value" ? ".01" : ""}
               />
               {errors[input.field] && <p>{errors[input.field].message}</p>}
             </Fragment>
