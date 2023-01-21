@@ -1,21 +1,23 @@
+import { useCallback, useEffect, useState, useRef, Fragment } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import Message from "../../components/Message/index";
+import { INPUTS, DELAY } from "../../services/constants";
 import { Link, useNavigate } from "react-router-dom";
 import * as F from "../../components/FormComponents";
 import AppLogo from "../../components/AppLogo";
 import Form from "../../layout/Form/index";
 import Main from "../../layout/Main/index";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import URL from "../../config";
 import axios from "axios";
 
+const formInputs = INPUTS.filter((i) => i.form === "user");
+
 const SignUp = () => {
-  const [showMessage, setShowMessage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const timeRef = useRef();
   const {
-    reset,
     setFocus,
     register,
     getValues,
@@ -23,62 +25,54 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const submit = ({ name, email, password }) => {
+  const submit = useCallback(async ({ name, email, password }) => {
     setIsLoading(true);
-    axios
-      .post(`${URL}/signup`, { name, email, password })
-      .then(() => {
-        navigate("/");
-      })
-      .catch(({ response }) => {
-        setIsLoading(false);
-        if (response.status === 409) {
-          setShowMessage(true);
-          setTimeout(() => setShowMessage(false), 3500);
-          setFocus("email");
-          reset({ email: "" });
-        }
-      });
-  };
+    try {
+      await axios.post(`${URL}/signup`, { name, email, password });
+      navigate("/", { state: { message: "Cadastro realizado com sucesso!" } });
+    } catch ({ response }) {
+      clearTimeout(timeRef.content);
+      timeRef.content = setTimeout(() => setMessage(""), DELAY);
+      setIsLoading(false);
+      setMessage(
+        response.status === 409
+          ? "Email já cadastrado!"
+          : "Não foi possível realizar cadastro!"
+      );
+    }
+  });
+
+  useEffect(() => {
+    message === "Email já cadastrado!" &&
+      setFocus("email", { shouldSelect: true });
+  }, [message]);
 
   return (
-    <Main>
+    <Main {...{ message }}>
       {isLoading && <LoadingSpinner />}
-      {showMessage && <Message>Email já cadastrado!</Message>}
       <AppLogo />
       <Form submitFunction={handleSubmit(submit)}>
-        <F.Input
-          {...register("name", { required: "Nome é obrigatório!" })}
-          placeholder="Nome"
-          disabled={isLoading}
-        />
-        {errors.name && <p>{errors.name.message}</p>}
-        <F.Input
-          {...register("email", { required: "Email é obrigatório!" })}
-          type="email"
-          placeholder="Email"
-          disabled={isLoading}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
-        <F.Input
-          {...register("password", { required: "Senha é obrigatório!" })}
-          type="password"
-          placeholder="Senha"
-          disabled={isLoading}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
-        <F.Input
-          {...register("confirmPassword", {
-            validate: {
-              matchesPassword: (value) =>
-                getValues().password === value || "As senhas devem ser iguais!",
-            },
-          })}
-          type="password"
-          placeholder="Confirme a senha"
-          disabled={isLoading}
-        />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+        {formInputs.map((input, index) => (
+          <Fragment key={index}>
+            <F.Input
+              {...register(
+                input.field,
+                input.field === "confirmPassword"
+                  ? {
+                      validate: {
+                        matchesPassword: (value) =>
+                          getValues().password === value || input.error,
+                      },
+                    }
+                  : { required: input.error }
+              )}
+              type={input.type}
+              disabled={isLoading}
+              placeholder={input.placeholder}
+            />
+            {errors[input.field] && <p>{errors[input.field].message}</p>}
+          </Fragment>
+        ))}
         <F.Submit type="submit" value="Cadastrar" />
       </Form>
       <Link to="/">Já tem uma conta? Entre agora!</Link>

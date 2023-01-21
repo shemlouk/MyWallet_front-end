@@ -10,15 +10,16 @@ const LoadingSpinner = () => {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  width: 150px;
+  height: 150px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 7px;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  align-items: center;
+  top: calc(50% - 75px);
+  left: calc(50% - 75px);
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
 export default LoadingSpinner;
