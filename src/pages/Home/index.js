@@ -13,7 +13,7 @@ import * as S from "./style";
 import axios from "axios";
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [records, setRecords] = useState([]);
   const [balance, setBalance] = useState();
@@ -21,6 +21,7 @@ const Home = () => {
   const timeRef = useRef();
 
   const getData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const { data } = await axios.get(`${URL}/record`, config);
       setIsLoading(false);
@@ -36,7 +37,6 @@ const Home = () => {
       });
     } catch (err) {
       setIsLoading(false);
-      setNotificationTimeout(timeRef, setMessage);
       setMessage("Não foi possível carregar os dados!");
     }
   });
@@ -44,6 +44,10 @@ const Home = () => {
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    setNotificationTimeout(timeRef, setMessage);
+  }, [message]);
 
   return (
     <>
@@ -53,7 +57,13 @@ const Home = () => {
           {isLoading && <LoadingRecords />}
           <S.List>
             {records.length &&
-              records.map((record) => <Card key={record._id} {...record} />)}
+              records.map((record) => (
+                <Card
+                  {...record}
+                  key={record._id}
+                  {...{ getData, setMessage }}
+                />
+              ))}
             <S.ListFooter color={COLORS[balance?.type]}>
               SALDO <p>{"R$ " + balance?.value}</p>
             </S.ListFooter>

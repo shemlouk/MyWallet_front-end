@@ -21,7 +21,7 @@ export const Date = styled.p`
 `;
 
 export const Value = styled.p`
-  width: 60px;
+  min-width: 45px;
   text-align: end;
   font-family: "Roboto", sans-serif !important;
   color: ${({ color }) => "var(--" + color + ")"};
