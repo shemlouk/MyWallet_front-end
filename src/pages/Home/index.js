@@ -62,7 +62,7 @@ const Home = () => {
   return (
     <>
       <Header {...{ setMessage, setIsLoading }}>
-        Olá, {formatUserName(userName)}
+        Olá, {userName && formatUserName(userName)}
       </Header>
       <Main {...{ message, isLoading }}>
         <S.Container>
